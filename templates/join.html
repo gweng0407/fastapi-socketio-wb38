@@ -46,12 +46,21 @@
 </head>
 
 <body>
-    <div id="video_grid" class="video-grid"></div>
-    <video id="local_vid" autoplay muted></video>
+    <div id="video_grid" class="video-grid">
+        <div id="local_video_container">
+            <video id="local_vid" autoplay muted></video>
+            <!-- 채팅 입력창과 전송 버튼 추가 -->
+            <div id="chat-box">
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
 
     <script src="{{url_for('static', path='video-manager.js')}}"></script>
     <script src="{{url_for('static', path='chatroom_ui.js')}}"></script>
     <script src="{{url_for('static', path='chatroom_networking.js')}}"></script>
 </body>
+
 
 </html>

@@ -7,7 +7,37 @@ var socket = io('http://127.0.0.1:5000');
 
 document.addEventListener("DOMContentLoaded", (event)=>{
     startCamera();
+
+    socket.on('connect', function () {
+        console.log('Connected to server');
+    });
+
+    socket.on('chat', function (message) {
+        appendMessage(message);
+        console.log(`Received message: ${message}`);
+    });
+
+    document.getElementById('sendButton').addEventListener('click', function () {
+        sendMessage();
+    });
+
+    function appendMessage(message) {
+        var chatBox = document.getElementById('chat-box');
+        var messageElement = document.createElement('p');
+        messageElement.textContent = message;
+        chatBox.appendChild(messageElement);
+    }
+
+    function sendMessage() {
+        var messageInput = document.getElementById('messageInput');
+        var message = messageInput.value;
+        console.log(`Attempting to send message: ${message}`);
+        socket.emit('chat', message);
+        messageInput.value = '';
+        console.log(`Sent message: ${message}`);
+    }
 });
+
 
 var camera_allowed=false; 
 var mediaConstraints = {
